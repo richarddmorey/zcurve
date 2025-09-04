@@ -1,3 +1,6 @@
+## version 2.4.5
+- Fixes incorrect computation of ERR identified by Richard D. Morey 
+
 ## version 2.4.4
 - Fixes incorrect computation of EDR/ERR when the start of the fitting range does not match the significance level.
 
