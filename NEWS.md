@@ -1,3 +1,6 @@
+## version 2.4.6
+- Adds warnings for small sample sizes and homogeneity as suggested by E. Zwet.
+
 ## version 2.4.5
 - Fixes incorrect computation of ERR identified by Richard D. Morey 
 
