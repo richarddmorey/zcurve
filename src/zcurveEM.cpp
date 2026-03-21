@@ -316,11 +316,12 @@ List zcurve_EM_fit_RCpp(NumericVector x, int type, NumericVector mu, NumericVect
   int i= 0;
   Q[i] = 0;
 
+  log_lik   = compute_log_lik(x, mu, sigma, a, b, theta);
+  lik       = exp_matrix(log_lik);
+  l_row_sum = compute_l_row_sum(lik);
+  
   do{
     // E-step
-    log_lik   = compute_log_lik(x, mu, sigma, a, b, theta);
-    lik       = exp_matrix(log_lik);
-    l_row_sum = compute_l_row_sum(lik);
     p         = compute_p(lik,l_row_sum);
 
     // M-step
@@ -328,7 +329,11 @@ List zcurve_EM_fit_RCpp(NumericVector x, int type, NumericVector mu, NumericVect
     if(type == 2){
       mu = update_mu(p, x, mu, sigma, a, b);
     }
-
+    
+    log_lik   = compute_log_lik(x, mu, sigma, a, b, theta);
+    lik       = exp_matrix(log_lik);
+    l_row_sum = compute_l_row_sum(lik);
+    
     Q[i+1] = sum(log(l_row_sum));
     ++i;
 
