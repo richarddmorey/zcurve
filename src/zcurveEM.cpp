@@ -95,12 +95,12 @@ NumericVector tdist_pdf(NumericVector x, double mu, double df, double a, double 
   return exp(L);
 }
 NumericVector trunc_normal_lpdf(NumericVector x, double mu, double sigma, double a, double b) {
-  double lccdf = R::pnorm(a, mu, sigma, false,true);
-  double lcdf  = R::pnorm(b, mu, sigma, true, true);
+  double ccdf = R::pnorm(a, mu, sigma, true, false);
+  double cdf  = R::pnorm(b, mu, sigma, true, false);
 
   NumericVector L = dnorm(x, mu, sigma, true);
 
-  L = L - lccdf - lcdf;
+  L = L - log(cdf - ccdf);
   return L;
 }
 
@@ -189,6 +189,7 @@ NumericMatrix weight_u_log_lik(NumericMatrix ull, NumericVector theta){
   }
   return ll;
 }
+
 NumericMatrix compute_log_lik(NumericVector x, NumericVector mu, NumericVector sigma, double a, double b, NumericVector theta){
   NumericMatrix ll(x.size(), mu.size());
 
